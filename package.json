@@ -1,0 +1,43 @@
+{
+  "name": "nebula-os",
+  "productName": "NEBULA OS",
+  "version": "1.0.0",
+  "description": "NEBULA OS — a cinematic 'operating system from the future' desktop experience for Windows.",
+  "author": "NEBULA",
+  "license": "MIT",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "preview": "node server.js",
+    "dist": "electron-builder --win portable",
+    "dist:install": "electron-builder --win nsis"
+  },
+  "build": {
+    "appId": "com.nebula.os",
+    "productName": "NEBULA OS",
+    "files": [
+      "main.js",
+      "server.js",
+      "renderer/**/*"
+    ],
+    "win": {
+      "target": [
+        "portable",
+        "nsis"
+      ],
+      "icon": "renderer/assets/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true
+    },
+    "portable": {
+      "artifactName": "NEBULA-OS-${version}-portable.exe"
+    }
+  },
+  "devDependencies": {
+    "electron": "^31.3.0",
+    "electron-builder": "^24.13.3"
+  }
+}
