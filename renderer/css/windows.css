@@ -1,0 +1,60 @@
+/* ─────────────────────────────────────────────
+   NEBULA OS — glass windows / window manager
+   ───────────────────────────────────────────── */
+#windows-layer{position:absolute;inset:0;z-index:20;pointer-events:none}
+#windows-layer.win-active{pointer-events:auto}
+
+.win{position:absolute;display:flex;flex-direction:column;min-width:320px;min-height:200px;
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  backdrop-filter:blur(var(--blur)) saturate(150%);
+  box-shadow:var(--shadow);pointer-events:auto;
+  transition:box-shadow .25s,opacity .22s,transform .22s;will-change:transform;overflow:hidden}
+.win::before{content:"";position:absolute;inset:0;border-radius:var(--radius);padding:1px;pointer-events:none;
+  background:linear-gradient(135deg,rgba(255,255,255,.14),transparent 30%,transparent 70%,rgba(255,255,255,.06));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;opacity:.6}
+.win.open{animation:winIn .38s cubic-bezier(.2,1.1,.35,1) both}
+.win.closing{animation:winOut .22s ease forwards;pointer-events:none}
+@keyframes winIn{from{opacity:0;transform:scale(.9) translateY(24px)}to{opacity:1;transform:none}}
+@keyframes winOut{to{opacity:0;transform:scale(.94) translateY(14px)}}
+.win.focused{box-shadow:0 40px 110px -20px rgba(0,0,0,.85),0 0 0 1px rgba(122,77,255,.25),0 0 60px -20px var(--a1)}
+.win.minimized{transform:translateY(40vh) scale(.7);opacity:0;pointer-events:none}
+.win.maximized{border-radius:0}
+
+.win-title{display:flex;align-items:center;gap:11px;padding:13px 12px 11px 16px;cursor:default;position:relative;
+  touch-action:none;-webkit-app-region:no-drag}
+.win-title .wt-ico{width:22px;height:22px;border-radius:7px;display:grid;place-items:center;font-size:13px;
+  background:linear-gradient(135deg,rgba(255,255,255,.13),rgba(255,255,255,.03));border:1px solid var(--line);flex:none}
+.win-title .wt-name{font-size:13px;font-weight:600;letter-spacing:.3px;color:var(--txt);white-space:nowrap}
+.win-title .wt-dots{margin-left:auto;display:flex;gap:2px;align-items:center;padding-right:4px}
+.wc-btn{width:34px;height:30px;border-radius:9px;display:grid;place-items:center;color:var(--txt-dim);transition:.15s}
+.wc-btn svg{width:13px;height:13px}
+.wc-btn:hover{background:rgba(255,255,255,.1);color:var(--txt)}
+.wc-btn.close:hover{background:linear-gradient(135deg,var(--danger),#e23a5a);color:#fff;box-shadow:0 0 14px rgba(255,92,122,.4)}
+
+.win-body{position:relative;flex:1;overflow:auto;padding:16px}
+.win-body.nopad{padding:0;overflow:hidden}
+/* full-bleed apps that manage their own layout/scroll */
+.win-body.term{padding:0;overflow:hidden}
+.win-body.viz{overflow:hidden}
+.win-body.vault{padding:0;overflow:hidden}
+.win-body.settings{padding:0;overflow:hidden}
+
+.win-resize{position:absolute;right:0;bottom:0;width:20px;height:20px;cursor:nwse-resize;z-index:5}
+.win::after{content:"";position:absolute;pointer-events:none}
+
+/* top glass highlight sheen */
+.win .sheen{position:absolute;top:0;left:0;right:0;height:60%;pointer-events:none;opacity:.5;
+  background:linear-gradient(180deg,rgba(255,255,255,.05),transparent)}
+
+/* dock — floating open-app dock over taskbar center handled in JS */
+.dock-pill{display:flex;align-items:center;gap:2px}
+
+/* pills/buttons/inputs inside apps */
+.g-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:11px;font-size:13px;font-weight:600;
+  background:rgba(255,255,255,.06);border:1px solid var(--line);transition:.18s;color:var(--txt)}
+.g-btn:hover{background:rgba(255,255,255,.11);transform:translateY(-1px)}
+.g-btn:active{transform:scale(.97)}
+.g-btn.accent{background:linear-gradient(135deg,var(--a1),var(--a2));border:none;color:#04030b;box-shadow:0 8px 24px -8px var(--a2)}
+.g-btn.accent:hover{filter:brightness(1.1)}
+.g-btn.glow{box-shadow:0 0 0 0 rgba(122,77,255,0)}

@@ -1,0 +1,83 @@
+/* ─────────────────────────────────────────────
+   NEBULA OS — base / tokens / background FX
+   ───────────────────────────────────────────── */
+:root{
+  /* accent gradient ends (theme engine rewrites these) */
+  --a1:#35e0ff;
+  --a2:#9a7bff;
+  --accent:var(--a1);
+
+  --bg:#04030b;
+  --bg2:#080719;
+  --panel:rgba(18,16,36,.46);
+  --panel-2:rgba(24,22,46,.6);
+  --line:rgba(255,255,255,.10);
+  --line-2:rgba(255,255,255,.18);
+  --txt:#f2f4ff;
+  --txt-dim:rgba(242,244,255,.62);
+  --txt-faint:rgba(242,244,255,.38);
+  --danger:#ff5c7a;
+  --ok:#39e6a0;
+
+  --radius:18px;
+  --radius-s:12px;
+  --blur:26px;
+  --font:"Segoe UI Variable Display","Segoe UI Variable","Segoe UI",system-ui,-apple-system,"Helvetica Neue",sans-serif;
+  --mono:"Cascadia Code","SFMono-Regular",Consolas,monospace;
+  --shadow:0 30px 80px -20px rgba(0,0,0,.7);
+  --shadow-sm:0 12px 34px -16px rgba(0,0,0,.65);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:var(--bg);
+  color:var(--txt);
+  font-family:var(--font);
+  overflow:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  user-select:none;
+}
+button{font-family:inherit;color:inherit;background:none;border:none;cursor:pointer}
+input,select{font-family:inherit;color:inherit}
+
+/* ── backdrop elements ─────────────────────── */
+#stage{position:fixed;inset:0;overflow:hidden;background:
+  radial-gradient(120% 90% at 78% -8%, var(--bg2) 0%, var(--bg) 58%);}
+#bg{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+#bg-blobs{position:absolute;inset:-20%;z-index:1;filter:blur(90px) saturate(125%);opacity:.55;pointer-events:none;display:var(--show-blobs,block)}
+#bg-blobs::before,#bg-blobs::after,#bg-blobs i{
+  content:"";position:absolute;border-radius:50%;will-change:transform;opacity:.5;
+}
+#bg-blobs::before{width:55vmax;height:55vmax;left:8%;top:-12%;background:radial-gradient(circle at 30% 30%,var(--a1),transparent 62%);animation:blob1 26s ease-in-out infinite alternate}
+#bg-blobs::after{width:48vmax;height:48vmax;right:-6%;top:22%;background:radial-gradient(circle at 60% 40%,var(--a2),transparent 62%);animation:blob2 32s ease-in-out infinite alternate}
+#bg-blobs i{width:38vmax;height:38vmax;left:28%;bottom:-18%;background:radial-gradient(circle at 40% 60%,#7a4dff,transparent 60%);animation:blob3 40s ease-in-out infinite alternate}
+@keyframes blob1{to{transform:translate(9vmax,6vmax) scale(1.2) rotate(14deg)}}
+@keyframes blob2{to{transform:translate(-8vmax,7vmax) scale(1.25) rotate(-12deg)}}
+@keyframes blob3{to{transform:translate(6vmax,-9vmax) scale(1.15)}}
+
+#bg-grid{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.5;display:var(--show-grid,block);
+  background-image:
+    radial-gradient(circle at 50% 50%, transparent 60%, rgba(0,0,0,.5) 100%),
+    linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);
+  background-size:100% 100%,52px 52px,52px 52px;
+  -webkit-mask-image:radial-gradient(120% 120% at 50% 40%,#000 30%,transparent 100%);
+  mask-image:radial-gradient(120% 120% at 50% 40%,#000 30%,transparent 100%);
+  transition:opacity .6s;
+}
+
+/* custom scrollbar */
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:20px;border:2px solid transparent;background-clip:content-box}
+::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.22);background-clip:content-box}
+
+.screen{position:absolute;inset:0;z-index:10}
+#desktop{position:absolute;inset:0;z-index:5;opacity:0;pointer-events:none}
+#desktop.on{opacity:1;pointer-events:auto}
+#lockscreen{z-index:20}
+#boot{z-index:30}
+
+::selection{background:rgba(122,77,255,.4)}

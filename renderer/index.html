@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#04030b" />
+  <title>NEBULA OS</title>
+  <link rel="stylesheet" href="./css/base.css" />
+  <link rel="stylesheet" href="./css/shell.css" />
+  <link rel="stylesheet" href="./css/windows.css" />
+  <link rel="stylesheet" href="./css/apps.css" />
+</head>
+<body>
+  <div id="stage">
+    <canvas id="bg"></canvas>
+    <div id="bg-blobs" aria-hidden="true"></div>
+    <div id="bg-grid" aria-hidden="true"></div>
+
+    <!-- ── BOOT ─────────────────────────────────────────── -->
+    <div id="boot" class="screen">
+      <div class="boot-mark" aria-hidden="true">
+        <svg viewBox="0 0 120 120"><g fill="none" stroke-linecap="round">
+          <circle class="bm-ring bm-r1" cx="60" cy="60" r="54" stroke="url(#bg-a)"/>
+          <circle class="bm-ring bm-r2" cx="60" cy="60" r="40" stroke="url(#bg-a)"/>
+          <circle class="bm-core" cx="60" cy="60" r="6" fill="currentColor"/>
+        </g></svg>
+        <div class="boot-logo">NEBULA<span>OS</span></div>
+      </div>
+      <div class="boot-sub">initializing experience</div>
+      <div class="boot-progress"><i></i></div>
+      <div class="boot-hint">making things look beautiful…</div>
+    </div>
+
+    <!-- ── LOCK SCREEN ──────────────────────────────────── -->
+    <div id="lockscreen" class="screen">
+      <div class="lock-time" id="lockTime">--:--</div>
+      <div class="lock-date" id="lockDate">—</div>
+      <button class="lock-unlock" id="lockUnlock" aria-label="Unlock">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M4 12l6 6L20 6"/></svg>
+      </button>
+      <div class="lock-fade"></div>
+    </div>
+
+    <!-- ── DESKTOP ──────────────────────────────────────── -->
+    <div id="desktop">
+      <div id="windows-layer"></div>
+
+      <div id="icons-layer">
+        <button class="desk-icon" data-app="pulse">
+          <span class="di-ico" data-glyph="pulse"></span><span class="di-lab">Pulse</span>
+        </button>
+        <button class="desk-icon" data-app="neon">
+          <span class="di-ico" data-glyph="neon"></span><span class="di-lab">Neon</span>
+        </button>
+        <button class="desk-icon" data-app="aurora">
+          <span class="di-ico" data-glyph="aurora"></span><span class="di-lab">Aurora</span>
+        </button>
+        <button class="desk-icon" data-app="vault">
+          <span class="di-ico" data-glyph="vault"></span><span class="di-lab">Vault</span>
+        </button>
+        <button class="desk-icon" data-app="drift">
+          <span class="di-ico" data-glyph="drift"></span><span class="di-lab">Drift</span>
+        </button>
+        <button class="desk-icon" data-app="terminal">
+          <span class="di-ico" data-glyph="term"></span><span class="di-lab">Terminal</span>
+        </button>
+        <button class="desk-icon" data-app="about">
+          <span class="di-ico" data-glyph="about"></span><span class="di-lab">About</span>
+        </button>
+      </div>
+
+      <div id="launchpad"></div>
+      <div id="toasts"></div>
+      <div id="sysbar"></div>
+
+      <nav id="taskbar"></nav>
+    </div>
+
+    <div id="hud-reticle" aria-hidden="true"></div>
+  </div>
+
+  <!-- shared gradients -->
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <linearGradient id="bg-a" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="var(--a1)"/><stop offset="1" stop-color="var(--a2)"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>
